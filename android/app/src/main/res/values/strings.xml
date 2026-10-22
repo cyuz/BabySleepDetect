@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">寶寶睡姿監測</string>
+    <string name="loading">載入模型中…</string>
+    <string name="need_camera">需要相機權限才能監測</string>
+    <string name="camera_failed">無法開啟相機</string>
+    <string name="model_missing">找不到模型 model.onnx，請先執行 scripts/export_android_model.py</string>
+    <string name="status_posture">睡姿：%1$s</string>
+    <string name="status_prone">趴睡（%1$d 秒）</string>
+    <string name="alert_prone">⚠️ 寶寶趴睡 %1$d 秒，請立即查看！</string>
+    <string name="missing">⚠️ 偵測不到寶寶</string>
+    <string name="detail">單幀：%1$s / %2$s / %3$d ms</string>
+    <string name="switch_camera">切換鏡頭</string>
+    <string name="mute">靜音</string>
+    <string name="settings">設定</string>
+    <string name="setting_alert_after">趴睡持續幾秒後警報</string>
+    <string name="setting_missing_after">幾秒偵測不到寶寶就提醒（0 停用）</string>
+    <string name="setting_kpt_conf">關鍵點可見門檻（0.05–0.95，夜視可調低）</string>
+    <string name="setting_webhook">警報 webhook 網址（選填，如 https://ntfy.sh/主題）</string>
+</resources>

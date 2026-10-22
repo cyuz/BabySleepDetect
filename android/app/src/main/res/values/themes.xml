@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.BabySleep" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">#3F51B5</item>
+        <item name="android:statusBarColor">#111111</item>
+        <item name="android:navigationBarColor">#111111</item>
+    </style>
+</resources>

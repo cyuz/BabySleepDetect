@@ -59,6 +59,34 @@ python -m babysleep.app --source sample.mp4
 
 API：`GET /api/status` 回傳目前睡姿的 JSON，`GET /stream` 是 MJPEG 影像串流。
 
+## Android App
+
+`android/` 是原生 Android App（Kotlin + CameraX + ONNX Runtime），YOLO26 **直接在手機上推論**，不需要電腦或網路。
+把舊手機架在嬰兒床上方，開著 App 就能監測：
+
+- 即時畫面疊上寶寶框與骨架，頂端顯示睡姿（綠：仰睡、黃：側睡、橘：趴睡）
+- 趴睡持續超過設定秒數 → 以**鬧鐘音量**循環響鈴並震動（不受媒體音量影響），可按「靜音」
+- 設定：警報秒數、偵測不到寶寶提醒、關鍵點門檻、webhook（例如 ntfy，讓另一支手機收到推播）
+- 睡姿規則與 Python 版相同（`posture/Posture.kt`、`posture/SleepMonitor.kt`）
+
+### 下載 APK
+
+每次推送後 GitHub Actions 會自動建置：到 repo 的 **Actions → CI → 最新一次執行 → Artifacts** 下載
+`BabySleepDetect-apk`，解壓縮後安裝到手機（需允許「安裝未知來源應用程式」）。
+
+### 自行建置
+
+```bash
+pip install ultralytics onnx onnxslim
+python scripts/export_android_model.py          # 產生 android/app/src/main/assets/model.onnx
+cd android && ./gradlew assembleDebug            # 或用 Android Studio 開啟 android/ 資料夾
+```
+
+要用自訂模型：`python scripts/export_android_model.py --model runs/detect/baby_sleep/weights/best.pt`。
+手機太慢可以加上 `--imgsz 480` 或 `--imgsz 320`。
+
+> App 需保持在前景（螢幕會自動保持開啟）；切到其他 App 或鎖定螢幕時會停止監測。建議接上充電器。
+
 ## 訓練自訂 YOLO26 模型（建議）
 
 通用姿態模型是用成人資料訓練的，遇到包巾、棉被或夜視畫面時可能不穩定。收集自家嬰兒床的照片並標註後再微調，準確度會高很多：
@@ -100,6 +128,8 @@ babysleep/
   detector.py  # YOLO26 推論（pose / detect / classify）
   app.py       # 攝影機擷取 + Flask 網頁監看 + webhook
 train.py       # 訓練 / 匯出自訂 YOLO26 模型
+scripts/export_android_model.py  # 匯出 ONNX 給 Android
+android/       # Android App（Kotlin）
 data/baby_sleep.yaml
 tests/
 ```
