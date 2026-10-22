@@ -1,0 +1,13 @@
+# 自訂嬰兒睡姿資料集（YOLO 格式）
+# 目錄結構：
+#   datasets/baby_sleep/images/{train,val}/*.jpg
+#   datasets/baby_sleep/labels/{train,val}/*.txt   # 每行: <class> <cx> <cy> <w> <h>（0~1 正規化）
+# 類別名稱需包含 prone / supine / side，偵測程式會依名稱對應睡姿。
+path: datasets/baby_sleep
+train: images/train
+val: images/val
+
+names:
+  0: supine
+  1: prone
+  2: side

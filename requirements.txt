@@ -1,0 +1,5 @@
+ultralytics>=8.4.0  # YOLO26 support
+opencv-python>=4.8
+numpy>=1.24
+flask>=3.0
+requests>=2.31
